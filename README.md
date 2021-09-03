@@ -1,2 +1,2 @@
 # helpers
-Example scripts that can be incorporated into custom applications
+A group of helper scripts that can be incorporated into custom applications
