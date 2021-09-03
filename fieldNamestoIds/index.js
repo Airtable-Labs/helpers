@@ -77,27 +77,26 @@ let tableData = [];
       console.debug(`\t\tFound ${allRecords.length} records`);
     }
 
-    // Replace Field Names with Field IDs in each table
+    // Replace Field Names with Field IDs in each table's data output
     for (let table of tableData) {
-      // Find the corresponding table in the tableFieldMappings Array
+      // Find the corresponding table and fields in the tableFieldMappings Array
       let index = tableData.indexOf(table);
       let fieldsToMap = tableFieldMappings[index].fields;
 
       // Access the records
       let records = table.records;
 
-      // For each record, isolate the field/value pairs
+      // For each record...
       records.forEach((rec) => {
-        let recordFields = rec.fields;
-        let fieldNames = Object.keys(recordFields);
+        // Find the field/values and isolate the field names
+        let fields = rec.fields;
+        let fieldNames = Object.keys(fields);
 
-        // For each field name listed, find the corresponding field ID form the fieldsToMap array,
-        // replace the field name with the found field id, and delete the original FieldName/Value pair
+        // For each field name, find the corresponding field ID
+        // Replace the field name with the found field id
         fieldNames.forEach((fn) => {
           let fieldId = fieldsToMap.find((ftm) => ftm.name === fn).id;
-          delete Object.assign(recordFields, { [fieldId]: recordFields[fn] })[
-            fn
-          ];
+          delete Object.assign(fields, { [fieldId]: fields[fn] })[fn];
         });
       });
     }
